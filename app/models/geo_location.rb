@@ -1,4 +1,10 @@
-class GeoLocation < Base
+# frozen_string_literal: true
 
-  attr_accessor :id, :latitude, :longitude
+class GeoLocation < Base
+  attr_accessor :latitude, :longitude
+
+  def initialize(latitude, longitude)
+    @latitude = latitude
+    @longitude = longitude
+  end
 end
