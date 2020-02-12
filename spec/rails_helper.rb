@@ -51,13 +51,13 @@ RSpec.configure do |config|
 end
 
 def prepare_test_data
-  cabs = [{ color: 'white', is_available: true, geo_location: GeoLocation.new(2, 3),
+  cabs = [{ color: 'white', geo_location: GeoLocation.new(2, 3),
             pricing: 34, vehicle_num: 'KA 10 2010' },
-          { color: 'red', is_available: true, geo_location: GeoLocation.new(9, 3),
+          { color: 'red', geo_location: GeoLocation.new(9, 3),
             pricing: 24, vehicle_num: 'KA 10 2020' },
-          { color: 'blue', is_available: true, geo_location: GeoLocation.new(20, 3),
+          { color: 'blue', geo_location: GeoLocation.new(20, 3),
             pricing: 14, vehicle_num: 'KA 10 2030' },
-          { color: 'pink', is_available: true, geo_location: GeoLocation.new(8, 3),
+          { color: 'pink', geo_location: GeoLocation.new(8, 3),
             pricing: 94, vehicle_num: 'KA 10 2040' }]
   cabs.each { |cab| Cab.create(Cab.new(cab)) }
 end

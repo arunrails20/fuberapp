@@ -1,26 +1,25 @@
-class CabSearchService
-  attr_accessor :latitude, :longitude, :errors, :available_cab, :shorest_distance
+# frozen_string_literal: true
 
-  def initialize(latitude, longitude)
+class CabSearchService
+  attr_accessor :latitude, :longitude, :errors, :available_cab, :shortest_distance, :color
+
+  def initialize(latitude, longitude, color = nil)
     @latitude = latitude
     @longitude = longitude
     @available_cab = nil
     @errors = []
-    @shorest_distance = 0
+    @shortest_distance = Float::INFINITY
+    @color = color
   end
 
-  #TODOs Exception handling for process
+  # TODOs Exception handling for process
   def process
     return false unless ready_for_processing?
 
-    Cab.all_cabs.each do |cab|
-      distance = calculate_distance(cab.geo_location)
-      if shorest_distance < distance
-        @shorest_distance = distance
-        @available_cab = cab
-      end
-    end
+    nearest_cab
     true
+  rescue Exception => e
+    puts "CabSearchService Exception:  #{e.message}"
   end
 
   private
@@ -32,11 +31,21 @@ class CabSearchService
     errors.empty?
   end
 
+  def nearest_cab
+    Cab.all_cabs(color).each do |cab|
+      distance = calculate_distance(cab.geo_location)
+      if distance < shortest_distance
+        @shortest_distance = distance
+        @available_cab = cab
+      end
+    end
+  end
+
   def validate_params
-    unless latitude.present? && longitude.present?
-      @errors << "latitude and longitude both are required"
-    else
+    if latitude.present? && longitude.present?
       convert_to_float
+    else
+      @errors << I18n.t('cab.invalid_geo_location')
     end
   end
 
@@ -50,7 +59,6 @@ class CabSearchService
   end
 
   def calculate_distance(cab)
-    Math.sqrt((latitude - cab.latitude)** 2 + (longitude - cab.longitude)** 2)
+    Math.sqrt((latitude - cab.latitude)**2 + (longitude - cab.longitude)**2)
   end
-
 end

@@ -22,6 +22,8 @@ class Customer < Base
                                     params[:source][:longitude])
   end
 
+  # push customer to customer array and
+  # return the latest customer
   def self.create(params)
     @customers << params
     @customers.last

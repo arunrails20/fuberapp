@@ -6,6 +6,6 @@ class ApplicationController < ActionController::API
   def accept_only_json
     return if request.content_type == 'application/json'
 
-    render json: { msg: 'Content-Type should be application/json' }, status: 406
+    render json: { message: I18n.t('general.invalid_content_type') }, status: 406
   end
 end

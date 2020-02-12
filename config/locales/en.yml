@@ -35,3 +35,8 @@ en:
     success: "Successfully Booked your Ride"
   customer:
     invalid_mobile_num: "Invalid mobile number should be a 10 digit"
+  cab:
+    not_available: "Sorry there is no cab available right now"
+    invalid_geo_location: "latitude and longitude both are required"
+  general:
+    invalid_content_type: "Content-Type should be application/json"

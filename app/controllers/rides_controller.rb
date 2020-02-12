@@ -6,7 +6,8 @@ class RidesController < ApplicationController
     ride_service = RideCreationService.new(params)
 
     if ride_service.process
-      render json: { cab_number: ride_service.booked_cab_number, message: I18n.t('ride.success') }, status: :ok
+      render json: { cab_number: ride_service.booked_cab_number, ride_id: ride_service.ride.id,
+                     message: I18n.t('ride.success') }, status: :ok
     else
       render json: { errors: ride_service.errors.flatten }, status: :ok
     end

@@ -15,6 +15,8 @@ class RideCreationService < RideService
     return false unless ready_for_processing?
 
     true
+  rescue Exception => e
+    puts "RideCreationService Exception:  #{e.message}"
   end
 
   def booked_cab_number
