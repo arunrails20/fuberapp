@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
@@ -5,7 +7,9 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+if Rails.env.production?
+  abort('The Rails environment is running in production mode!')
+end
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -46,14 +50,14 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 end
 
-
 def prepare_test_data
-  cabs = [{color: "white", is_available: true, geo_location: GeoLocation.new(2,3), pricing: 34},
-          {color: "red", is_available: true, geo_location: GeoLocation.new(9,3), pricing: 24},
-          {color: "blue", is_available: true, geo_location: GeoLocation.new(20,3), pricing: 14},
-          {color: "pink", is_available: true, geo_location: GeoLocation.new(8,3), pricing: 94}]
-
-  cabs.each do |cab|
-    Cab.create(Cab.new(cab))
-  end
+  cabs = [{ color: 'white', is_available: true, geo_location: GeoLocation.new(2, 3),
+            pricing: 34, vehicle_num: 'KA 10 2010' },
+          { color: 'red', is_available: true, geo_location: GeoLocation.new(9, 3),
+            pricing: 24, vehicle_num: 'KA 10 2020' },
+          { color: 'blue', is_available: true, geo_location: GeoLocation.new(20, 3),
+            pricing: 14, vehicle_num: 'KA 10 2030' },
+          { color: 'pink', is_available: true, geo_location: GeoLocation.new(8, 3),
+            pricing: 94, vehicle_num: 'KA 10 2040' }]
+  cabs.each { |cab| Cab.create(Cab.new(cab)) }
 end

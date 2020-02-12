@@ -1,11 +1,33 @@
 # frozen_string_literal: true
 
+# Instance of customers details
 class Customer < Base
   attr_accessor :id, :name, :mobile_number, :geo_location
 
-  def initialize(name, mobile_number, geo_location)
-    @name = name
-    @mobile_number = mobile_number
-    @geo_location = geo_location
+  @customers = []
+
+  ASSOCIATIONS = ['geo_location'].freeze
+
+  # validations
+  validates :id, :name, :mobile_number, :geo_location, presence: true
+  validates :mobile_number,
+            format: { with: /\A\d{10}\z/,
+                      message: I18n.t('customer.invalid_mobile_num') }
+
+  def initialize(params)
+    @id = Customer.all_customers.length + 1
+    @name = params[:name]
+    @mobile_number = params[:mobile_number]
+    @geo_location = GeoLocation.new(params[:source][:latitude],
+                                    params[:source][:longitude])
+  end
+
+  def self.create(params)
+    @customers << params
+    @customers.last
+  end
+
+  def self.all_customers
+    @customers
   end
 end

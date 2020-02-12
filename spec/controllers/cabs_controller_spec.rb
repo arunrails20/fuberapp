@@ -20,7 +20,7 @@ RSpec.describe CabsController, type: :controller do
     end
 
     context "without latitude and longitude" do
-       it "invalid" do
+       it "should not return any cab" do
         get :search_cabs
         
         expect(response.status).to eq(200)
@@ -30,7 +30,7 @@ RSpec.describe CabsController, type: :controller do
     end
 
     context "with invalid longitude" do
-      it "invalid" do
+      it "should not return any cab" do
         get :search_cabs, params: {latitude: 20, longitude: "test"}
         
         expect(response.status).to eq(200)
