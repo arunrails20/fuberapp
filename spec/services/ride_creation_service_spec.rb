@@ -7,7 +7,7 @@ describe RideCreationService do
     prepare_test_data
   end
 
-  context 'with valid params and cab is available' do
+  context 'with valid params and cab is available, update cab status as initiated' do
     let(:params) do
       { vehicle_num: 'KA 10 2010', name: 'arun', mobile_number: 9_911_224_455,
         source: { "latitude": 19, "longitude": 8 },
@@ -20,6 +20,7 @@ describe RideCreationService do
       expect(service.process).to eq(true)
       expect(service.errors.empty?).to eq(true)
       expect(service.ride.present?).to eq(true)
+      expect(service.ride.booked_cab.status).to eq(Cab::STATES[:initiated])
     end
   end
 

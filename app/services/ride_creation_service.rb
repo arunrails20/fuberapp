@@ -14,6 +14,7 @@ class RideCreationService < RideService
   def process
     return false unless ready_for_processing?
 
+    ride.booked_cab.update_status!(Cab::STATES[:initiated])
     true
   rescue Exception => e
     puts "RideCreationService Exception:  #{e.message}"

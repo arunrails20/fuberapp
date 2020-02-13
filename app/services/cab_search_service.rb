@@ -12,7 +12,6 @@ class CabSearchService
     @color = color
   end
 
-  # TODOs Exception handling for process
   def process
     return false unless ready_for_processing?
 
@@ -32,7 +31,7 @@ class CabSearchService
   end
 
   def nearest_cab
-    Cab.all_cabs(color).each do |cab|
+    Cab.available_cabs(color).each do |cab|
       distance = calculate_distance(cab.geo_location)
       if distance < shortest_distance
         @shortest_distance = distance

@@ -14,7 +14,6 @@ class Cab < Base
   STATES = {
     initiated: 1,
     inprogress: 2,
-    cancelled: 3,
     completed: 4,
     available: 5
   }.freeze
@@ -25,13 +24,13 @@ class Cab < Base
     end
   end
 
-  AVAILABLE_STATUS = %i[available cancelled completed].freeze
+  AVAILABLE_STATUS = %i[available completed].freeze
   NOT_AVAILABLE_STATUS = %i[initiated inprogress].freeze
 
   @cabs = []
 
   def initialize(params)
-    @id = Cab.all_cabs.length + 1
+    @id = Cab.all.length + 1
     @status = STATES[:available]
     @color = params[:color]
     @geo_location = params[:geo_location]
@@ -42,19 +41,27 @@ class Cab < Base
     @cabs << params
   end
 
-  def self.all_cabs(color = nil)
+  def self.all
+    @cabs
+  end
+
+  def self.available_cabs(color = nil)
     if color
-      @cabs.select { |cab| cab.color == color && AVAILABLE_STATUS.any? { |status| cab.send(status.to_s + '?') } }
+      all.select { |cab| cab.color == color && AVAILABLE_STATUS.any? { |status| cab.send(status.to_s + '?') } }
     else
-      @cabs.select { |cab| AVAILABLE_STATUS.any? { |status| cab.send(status.to_s + '?') } }
+      all.select { |cab| AVAILABLE_STATUS.any? { |status| cab.send(status.to_s + '?') } }
     end
   end
 
   def self.find_by_vehicle_num(vehicle_num)
-    all_cabs.find { |cab| cab.vehicle_num == vehicle_num }
+    all.find { |cab| cab.vehicle_num == vehicle_num }
   end
 
   def self.find_by_id(id)
-    all_cabs.find { |cab| cab.id == id }
+    all.find { |cab| cab.id == id }
+  end
+
+  def update_status!(status)
+    self.status = status
   end
 end

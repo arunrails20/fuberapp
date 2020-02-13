@@ -17,10 +17,6 @@ class RidesController < ApplicationController
     # update the start time
   end
 
-  def cancel
-    # update the end time
-  end
-
   def completed
     # update the end time
   end
