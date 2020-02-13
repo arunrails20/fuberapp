@@ -1,4 +1,4 @@
-#### App code base details:
+### App code base details:
 
 Fuber call taxi service, customers provide their current location to find the cab and book the ride.
 All data is stored in memory. Whenever we start the server(rails s) config/initializers/prepare_data.rb file got automatically executed and load cab details.
@@ -12,7 +12,7 @@ config/locales/en.yml has all validations, success and error message
 ### APIs Details:
       
 #### 1. Search Cabs API:
-    Search cabs API will provide the available nearest cab
+    Search cabs API will provide the nearest available cab,
 
 
     URL: http://localhost:3000/search_cabs?latitude=9&longitude=9&color=blue
@@ -22,7 +22,7 @@ config/locales/en.yml has all validations, success and error message
     Request:
         latitude: should be a float or integer type
         longitude: should be a float or integer type
-        color: should be a string type
+        color: should be a string type, this param is optional
     Response:
     	{ "cab_details": {
     	  "id": 3,
@@ -35,7 +35,7 @@ config/locales/en.yml has all validations, success and error message
     	  "vehicle_num": "KA 10 2030"}}
 
 #### 2. Book Ride API.
-This API will confirm your ride and assign cab to customer. create a new ride in memory, API required vehicle_num, customer name, mobile number, source and destination, vehicle_num will get from the previous API. response will get ride_id,
+This API will confirm your ride and assign cab to customer. its create a new ride in memory, API required vehicle_num, customer name, mobile number, source and destination, vehicle_num from the previous API. response will get ride id.
 
 
 	 URL: http://localhost:3000/book_ride
@@ -65,7 +65,7 @@ This API will confirm your ride and assign cab to customer. create a new ride in
             "message": "Successfully Booked your Ride"}
 
 #### 3. Start Ride API.
-   Start ride api will start the ride. update ride and cab status as in progress. need to send request as a ride_id, ride_id will get from previous API
+   Start ride api will start the ride. update ride and cab status as in progress. need to send request as a ride_id, ride_id from previous API
 
 
     URL: http://localhost:3000/start_ride
@@ -126,4 +126,4 @@ Need to send a request as a ride_id, response will get pricing details. after th
 ### Running Unit Test cases
     1 Go to app root folder
     2 Run the rspec cmd to execute all test cases
-    3 rspec
+    3 $ rspec
