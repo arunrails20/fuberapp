@@ -48,7 +48,7 @@ describe CabSearchService do
     let(:service) { CabSearchService.new(3, 4) }
 
     it 'Should return the distance value' do
-      cab = Cab.new(color: 'white', is_available: true, geo_location: GeoLocation.new(7, 7), pricing: 34)
+      cab = Cab.new(color: 'white', is_available: true, geo_location: GeoLocation.new(7, 7))
       service.send('convert_to_float')
       expect(service.send('calculate_distance', cab.geo_location)).to eq(5.0)
     end

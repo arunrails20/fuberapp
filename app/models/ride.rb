@@ -73,5 +73,9 @@ class Ride < Base
   def update_end_ride!
     self.end_date = Time.now
     self.status = STATES[:completed]
- end
+  end
+
+  def update_total_cost!(amt)
+    self.total_cost = amt
+  end
 end

@@ -95,6 +95,8 @@ RSpec.describe RidesController, type: :controller do
         expect(response.status).to eq(200)
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['message']).to eq(I18n.t('ride.ride_end'))
+        ride = Ride.find_by_id(1)
+        expect(ride.destination.latitude).to eq(ride.booked_cab.geo_location.latitude)
       end
     end
 

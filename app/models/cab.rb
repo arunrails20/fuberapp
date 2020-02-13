@@ -6,7 +6,6 @@ class Cab < Base
                 :color,
                 :is_available,
                 :geo_location,
-                :pricing,
                 :vehicle_num,
                 :status
 
@@ -23,6 +22,12 @@ class Cab < Base
       status == v
     end
   end
+
+  # pricing config
+  PRICING = [{ color: 'white', per_min_dogecoin: 1, per_km_dogecoin: 2, additional: 0 },
+             { color: 'red', per_min_dogecoin: 1, per_km_dogecoin: 2, additional: 0 },
+             { color: 'blue', per_min_dogecoin: 1, per_km_dogecoin: 2, additional: 0 },
+             { color: 'pink', per_min_dogecoin: 1, per_km_dogecoin: 2, additional: 5 }].freeze
 
   AVAILABLE_STATUS = %i[available completed].freeze
   NOT_AVAILABLE_STATUS = %i[initiated inprogress].freeze
@@ -63,5 +68,13 @@ class Cab < Base
 
   def update_status!(status)
     self.status = status
+  end
+
+  def pricing
+    PRICING.find { |price| price[:color] == color }
+  end
+
+  def update_location!(latitude, longitude)
+    self.geo_location = GeoLocation.new(latitude, longitude)
   end
 end
