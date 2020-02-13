@@ -20,6 +20,7 @@ class Ride < Base
   ASSOCIATIONS = %w[source destination].freeze
 
   START_RIDE_ELIGIBLE = [:initiated].freeze
+  START_END_ELIGIBLE = [:inprogress].freeze
 
   # states configuration
   STATES = {
@@ -68,4 +69,9 @@ class Ride < Base
     self.start_date = Time.now
     self.status = STATES[:inprogress]
   end
+
+  def update_end_ride!
+    self.end_date = Time.now
+    self.status = STATES[:completed]
+ end
 end

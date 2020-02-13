@@ -34,8 +34,10 @@ en:
   ride:
     success: "Successfully Booked your Ride"
     not_eligible: "This Ride is not eligible to start"
+    not_eligible_to_end: "This Ride is not eligible to complete"
     not_found: "Ride not found"
     ride_start: "Your Ride in progress"
+    ride_end: "Your Ride completed"
   customer:
     invalid_mobile_num: "Invalid mobile number should be a 10 digit"
   cab:

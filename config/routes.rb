@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   get 'search_cabs', to: 'cabs#search_cabs'
   post 'book_ride', to: 'rides#book'
   post 'start_ride', to: 'rides#start'
+  post 'end_ride', to: 'rides#end'
 end

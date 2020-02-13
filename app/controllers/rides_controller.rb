@@ -22,7 +22,15 @@ class RidesController < ApplicationController
     end
   end
 
-  def completed
-    # update the end time
+  def end
+    service = RideCompleteService.new(params)
+
+    if service.process
+      # After successfull ride completed update cab as available
+      service.ride.booked_cab.update_status!(Cab::STATES[:available])
+      render json: { message: I18n.t('ride.ride_end') }, status: :ok
+    else
+      render json: { errors: service.errors.flatten }, status: :ok
+    end
   end
 end
