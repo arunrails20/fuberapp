@@ -2,7 +2,6 @@
 
 class RidesController < ApplicationController
   def book
-    # Todos update cab status
     ride_service = RideCreationService.new(params)
 
     if ride_service.process
@@ -14,7 +13,13 @@ class RidesController < ApplicationController
   end
 
   def start
-    # update the start time
+    service = RideStartService.new(params)
+
+    if service.process
+      render json: { message: I18n.t('ride.ride_start') }, status: :ok
+    else
+      render json: { errors: service.errors.flatten }, status: :ok
+    end
   end
 
   def completed

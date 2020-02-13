@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RideCreationService < RideService
+class RideCreationService
   attr_accessor :ride, :errors
 
   attr_reader :params

@@ -54,4 +54,31 @@ RSpec.describe RidesController, type: :controller do
       end
     end
   end
+
+  describe 'Post, Start Ride' do
+    before :each do
+      @request.env['CONTENT_TYPE'] = 'application/json'
+      prepare_test_data
+    end
+
+    context 'Successfully start the Ride' do
+      it 'should return success message' do
+        post :start, body: { id: 1 }.to_json, format: :json
+
+        expect(response.status).to eq(200)
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response['message']).to eq(I18n.t('ride.ride_start'))
+      end
+    end
+
+    context 'Unable start the ride, Ride not Found' do
+      it 'should return error message' do
+        post :start, body: { id: 111 }.to_json, format: :json
+
+        expect(response.status).to eq(200)
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response['errors']).to eq([I18n.t('ride.not_found')])
+      end
+    end
+  end
 end

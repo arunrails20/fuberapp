@@ -19,6 +19,8 @@ class Ride < Base
 
   ASSOCIATIONS = %w[source destination].freeze
 
+  START_RIDE_ELIGIBLE = [:initiated].freeze
+
   # states configuration
   STATES = {
     initiated: 1,
@@ -56,5 +58,14 @@ class Ride < Base
 
   def booked_cab
     Cab.find_by_id(cab_id)
+  end
+
+  def self.find_by_id(id)
+    all.find { |ride| ride.id == id }
+  end
+
+  def update_start_ride!
+    self.start_date = Time.now
+    self.status = STATES[:inprogress]
   end
 end

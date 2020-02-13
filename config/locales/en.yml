@@ -33,6 +33,9 @@ en:
   hello: "Hello world"
   ride:
     success: "Successfully Booked your Ride"
+    not_eligible: "This Ride is not eligible to start"
+    not_found: "Ride not found"
+    ride_start: "Your Ride in progress"
   customer:
     invalid_mobile_num: "Invalid mobile number should be a 10 digit"
   cab:

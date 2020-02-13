@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class RideService
-  def block_cab; end
+  attr_accessor :ride
 
-  def release_cab; end
+  def initialize(id)
+    @ride = Ride.find_by_id(id)
+  end
 end
