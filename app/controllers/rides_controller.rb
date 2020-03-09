@@ -8,7 +8,7 @@ class RidesController < ApplicationController
       render json: { cab_number: ride_service.booked_cab_number, ride_id: ride_service.ride.id,
                      message: I18n.t('ride.success') }, status: :ok
     else
-      render json: { errors: ride_service.errors.flatten }, status: :ok
+      render json: { errors: ride_service.errors.flatten }, status: :unprocessable_entity
     end
   end
 
@@ -18,7 +18,7 @@ class RidesController < ApplicationController
     if service.process
       render json: { message: I18n.t('ride.ride_start') }, status: :ok
     else
-      render json: { errors: service.errors.flatten }, status: :ok
+      render json: { errors: service.errors.flatten }, status: :unprocessable_entity
     end
   end
 
@@ -41,7 +41,7 @@ class RidesController < ApplicationController
                                 total_min: pricing_service.total_min,
                                 total_km: pricing_service.total_km } }, status: :ok
     else
-      render json: { errors: service.errors.flatten }, status: :ok
+      render json: { errors: service.errors.flatten }, status: :unprocessable_entity
     end
   end
 end
