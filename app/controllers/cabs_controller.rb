@@ -13,7 +13,7 @@ class CabsController < ApplicationController
         render json: { message: I18n.t('cab.not_available') }, status: :ok
       end
     else
-      render json: { errors: cab.errors }, status: :ok
+      render json: { errors: cab.errors }, status: :unprocessable_entity
     end
   end
 end
